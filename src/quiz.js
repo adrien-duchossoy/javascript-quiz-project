@@ -40,11 +40,18 @@ class Quiz {
             }
         }
     
-        filterQuestionsByDifficulty(difficulty){
-            if(difficulty >= 1 && difficulty <= 3 && typeof(difficulty) === 'number') {
-                this.questions = this.questions
-                    .filter((questionObj) => questionObj.difficulty === difficulty)
+        filterQuestionsByDifficulty(difficulty) {
+            if (typeof difficulty !== 'number' || difficulty < 1 || difficulty > 3) {
+                return;
             }
+            this.questions = this.questions.filter(questionInstance => questionInstance.difficulty === difficulty)
+        }
+        averageDifficulty() {
+            let averageDiff = 0;
+            const sumDifficulty = this.questions.reduce((acc, question) => {
+                return acc + question.difficulty;
+            }, 0)
+            return averageDiff = sumDifficulty / this.questions.length;
         }
     }
 
