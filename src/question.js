@@ -5,7 +5,7 @@ class Question {
         this.answer = answer
         this.difficulty = difficulty
     }
-    shuffleChoices(){
+    shuffleChoices(){  
         for (let i=0; i<this.choices.length; i++){
             const j = Math.floor(Math.random()* (i+1));
             [this.choices[i], this.choices[j]] = [this.choices[j], this.choices[i]]
