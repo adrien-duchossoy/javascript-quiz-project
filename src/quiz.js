@@ -41,13 +41,10 @@ class Quiz {
         }
     
         filterQuestionsByDifficulty(difficulty){
-            let filteredByDifficulty = []
             if(difficulty >= 1 && difficulty <= 3 && typeof(difficulty) === 'number') {
-                filteredByDifficulty = this.questions
-                    .filter((questionObj) => questionObj.difficulty <= difficulty)
-                    .sort((a, b) => a.difficulty - b.difficulty)
+                this.questions = this.questions
+                    .filter((questionObj) => questionObj.difficulty === difficulty)
             }
-            return filteredByDifficulty
         }
     }
 
