@@ -59,8 +59,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /************  TIMER  ************/
 
-  let timer;
 
+  let timer = setInterval(() => {
+    quiz.timeRemaining--
+    console.log(quiz.timeRemaining)
+    // Convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
+    const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+    const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+    // Display the time remaining in the time remaining container
+    const timeRemainingContainer = document.getElementById("timeRemaining");
+    timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+    if (quiz.timeRemaining <= 0) {
+      showResults();
+    }
+  }, 1000)
 
   /************  EVENT LISTENERS  ************/
 
@@ -191,6 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
     resultContainer.innerText = `You scored ${quiz.correctAnswers} out of ${quiz.questions.length} correct answers!`; // This value is hardcoded as a placeholder
     restartQuiz()
+    clearInterval(timer);
   }
 
 
@@ -203,6 +216,21 @@ document.addEventListener("DOMContentLoaded", () => {
       endView.style.display = "none";
       quizView.style.display = "flex";
       showQuestion()
+      quiz.timeRemaining = quizDuration;
+      clearInterval(timer)
+      timer = setInterval(() => {
+        quiz.timeRemaining--
+        console.log(quiz.timeRemaining)
+        // Convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
+        const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+        const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+        // Display the time remaining in the time remaining container
+        const timeRemainingContainer = document.getElementById("timeRemaining");
+        timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+        if (quiz.timeRemaining <= 0) {
+          showResults();
+        }
+      }, 1000)
     })
   }
 })
